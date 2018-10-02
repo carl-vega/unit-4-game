@@ -1,0 +1,8 @@
+.character:hover img {
+  cursor: pointer;
+  border-color: #111111;
+}
+
+#antagonists .character img {
+  height: 100px;
+}
