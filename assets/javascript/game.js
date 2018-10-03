@@ -38,6 +38,7 @@ $(document).ready(function() {
     $("#pro").removeAttr("src");
     $("#ant").removeAttr("src");
     $("#select-pro h2").removeClass("d-none");
+    $("#attackMessage").empty();
     characterGenerator(Object.keys(CHARACTERS), "#characters", "col-2");
     $("#select-pro .character").on("click", pickProtagonist);
     game = {};
@@ -87,6 +88,7 @@ $(document).ready(function() {
   // select character to play against
   function pickAntagonist(event) {
     if (!game || game.ant) return;
+    $("#attackMessage").text("Click Enemy to Attack");
     var key = event.currentTarget.id;
     game.ant = Object.assign({ color: key }, CHARACTERS[key]);
     $("#ant")
@@ -101,10 +103,10 @@ $(document).ready(function() {
     if (!game || !game.ant) {
       return;
     }
-
+    $("#attackMessage").empty();
     // get attack values
-    $("#proHit").html("<h2>" + game.pro.hit + "--></h2>");
-    $("#antHit").html("<h2><--" + game.ant.hit + "</h2>");
+    $("#proHit").html("<h2>" + game.pro.hit + "&rarr;</h2>");
+    $("#antHit").html("<h2>&larr;" + game.ant.hit + "</h2>");
     game.ant.health = game.ant.health - game.pro.hit;
     game.pro.hit = game.pro.hit + game.pro.hitIncrease;
 
@@ -116,12 +118,16 @@ $(document).ready(function() {
   }
 
   function win() {
-    $("#win-lose").html("<h3>You Won!</h3><h4>YEAH BOI!!</h4>");
+    $("#attackMessage")
+      .html("You Won! YEAH BOI!!")
+      .removeClass("d-none");
     game = null;
   }
 
   function lose() {
-    $("#win-lose").html("<h3>You Lost.</h3><h4>MWAHAHAHA</h4>");
+    $("#attackMessage")
+      .html("You Lost. MWAHAHAHA")
+      .removeClass("d-none");
     game = null;
   }
 
@@ -129,6 +135,8 @@ $(document).ready(function() {
   function defeatAntagonist() {
     $("#ant").addClass("d-none");
     $("#antagonist h4").html("Defeated");
+    $("#proHit").empty();
+    $("#antHit").empty();
     delete game.ant;
     if ($("#antagonists .character").length <= 0) {
       win();
@@ -137,12 +145,12 @@ $(document).ready(function() {
 
   // not defeated, hit back
   function counterattack() {
-    $("#antagonist h4").html(game.ant.health);
+    $("#antagonist h4").html(game.ant.health + "❤️");
     game.pro.health = game.pro.health - game.ant.hit;
 
     if (game.pro.health > 0) {
       // still battling, update health
-      $("#protagonist h4").html(game.pro.health);
+      $("#protagonist h4").html("❤️" + game.pro.health);
     } else {
       lose();
     }
