@@ -50,9 +50,9 @@ $(document).ready(function() {
       element
         .append('<img class="card-img" src="./assets/images/' + key + '.svg">')
         .append(
-          '<div class="card-img-overlay"><h4 class="card-text">' +
+          '<div class="card-img-overlay d-flex"><div class="my-auto mx-auto text-center"><h4 class="card-text">' +
             CHARACTERS[key].health +
-            "</h4></div>"
+            "</h4></div></div>"
         );
       element.attr("id", key);
       element
