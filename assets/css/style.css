@@ -3,6 +3,31 @@
   border-color: #111111;
 }
 
+.card {
+  background-color: transparent !important;
+  cursor: pointer;
+  border-color: #777777;
+  padding: 0;
+}
+.card-img-overlay {
+  padding: 0;
+}
+
+.card:hover {
+  border-color: #ffffff;
+}
+
 #antagonists .character img {
   height: 100px;
+}
+body {
+  background-image: url("../images/allley-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #111111;
+}
+body,
+html {
+  height: 100vh;
 }
